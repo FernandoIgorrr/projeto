@@ -1,7 +1,8 @@
 <?php
+    require_once("database.class.php");
 
-public class Test{
-	$tesat - "test";
-}
+    class Test extends Database{
+
+    }
 
 ?>
