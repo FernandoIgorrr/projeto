@@ -13,7 +13,6 @@ abstract class Database{
 
     public function __construct(){
         $this->connect();
-        echo("asdadasd");
     }// END OF CONSTRUCTOR
 
     public function __destruct(){
@@ -32,23 +31,102 @@ abstract class Database{
         }
         //echo $this->connection->host_info . "\n";
 
-        $this->connection->query("SET NAMES 'utf8'");
-        $this->connection->query("SET character_set_connection  = utf8");
-        $this->connection->query("SET character_set_client      = utf8'");
-        $this->connection->query("SET character_set_results     = utf8'");
+       // $this->connection->query("SET NAMES 'utf8'");
+       // $this->connection->query("SET character_set_connection  = utf8");
+      //  $this->connection->query("SET character_set_client      = utf8'");
+      //  $this->connection->query("SET character_set_results     = utf8'");
         
     }// CONNECT
 
+    public function insert($object){
+        $sql    =   "INSERT INTO ".$object->table." (";
+        $sql    .=  $object->pk_field.", ";  
+        for($i = 0; $i < count($object->value_field); $i++){
+            $sql .= key($object->value_field);
+            if($i < count($object->value_field) - 1){
+                $sql    .=  ", ";
+            }
+            else{
+                $sql    .=  ") ";
+            }
+            next($object->value_field);
+        }
 
-    public function erro_handling($file = NULL, $rotine = NULL, $error_number = NULL, $error_message = NULL, $except_generate = FALSE){
-        if($file            == NULL)   $file    = "Não informado";
-        if($rotine          == NULL)   $rotine  = "Não informada";
-        if($error_number    == NULL)   $this->connection->errno();
-        if($error_message   == NULL)   $this->connection->error();
+        reset($object->value_field);
+        $sql    .=  "VALUES (";
+        $sql    .=  $object->pk_value.", ";  
+        for($i = 0; $i < count($object->value_field); $i++){
+
+            $sql .= is_numeric($object->value_field[key($object->value_field)]) ?
+            $object->value_field[key($object->value_field)] : 
+            "'".$object->value_field[key($object->value_field)]."'";
+
+            if($i < count($object->value_field) - 1){
+                $sql    .=  ", ";
+            }
+            else{
+                $sql    .=  ") ";
+            }
+            next($object->value_field);
+        }
+       // echo($sql);
+        return $this->exec_sql($sql);
+    }// END OF INSERT
+
+    public function update($object){
+        $sql    =   "UPDATE ".$object->table." SET ";
+
+        for($i = 0; $i < count($object->value_field); $i++){
+            $sql .= key($object->value_field)."=";
+
+            $sql .= is_numeric($object->value_field[key($object->value_field)]) ?
+            $object->value_field[key($object->value_field)] : 
+            "'".$object->value_field[key($object->value_field)]."'";
+
+            if($i < count($object->value_field) - 1){
+                $sql    .=  ", ";
+            }
+            else{
+                $sql    .=  " ";
+            }
+            next($object->value_field);
+        }
+
+        $sql    .= "WHERE ".$object->pk_field."=";
+        $sql    .=  is_numeric($object->pk_value) ? $object->pk_value : "'".$object->pk_value."'";
+
+        echo($sql);
+       return $this->exec_sql($sql);
+    }//END OF UPDATE
+
+    public function delete($object){
+        $sql    =   "DELETE FROM ".$object->table;
+        $sql    .= " WHERE ".$object->pk_field."=";
+        $sql    .=  is_numeric($object->pk_value) ? $object->pk_value : "'".$object->pk_value."'";
+
+        echo($sql);
+       return $this->exec_sql($sql);
+    }
+
+    public function exec_sql($sql = NULL){
+        if($sql != NULL){
+           $mysqli_query        =   $this->connection->query($sql) or $this->erro_handling(__FILE__,__FUNCTION__);
+           $this->affected_rows =   $this->connection->affected_rows;
+        }
+        else{
+            $this->erro_handling(__FILE__,__FUNCTION__,NULL,'Comando SQL não informado na função',FALSE);
+        }
+    }
+
+    public function erro_handling($file = NULL, $function = NULL, $error_number = NULL, $error_message = NULL, $except_generate = FALSE){
+        if($file            == NULL)   $file        = "Não informado";
+        if($function        == NULL)   $function    = "Não informada";
+        if($error_number    == NULL)   $this->connection->errno;
+        if($error_message   == NULL)   $this->connection->error;
     
         $result             =   'Ocorreu um erro com os seguintes detalhes:<br/>
                                 <strong>Arquivo:</strong>'.$file.'<br/>
-                                <strong>Rotina:</strong>'.$rotine.'<br/>
+                                <strong>Rotina:</strong>'.$function.'<br/>
                                 <strong>Código:</strong>'.$error_number.'<br/>
                                 <strong>Mensagem:</strong>'.$error_message;
         

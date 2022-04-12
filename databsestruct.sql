@@ -33,3 +33,7 @@ CREATE TABLE Residencia(
 INSERT INTO Tipo_Bolsista VALUES (1,"manager");
 INSERT INTO Tipo_Bolsista VALUES (2,"informatica");
 
+INSERT INTO `bolsista` (`matricula`, `nome`, `senha`, `tipo`) VALUES
+('20180146005', 'Fernando', '12345', 2),
+('20190146005', 'mendes kk', '12345', 2);
+

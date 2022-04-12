@@ -19,7 +19,7 @@
                 $this->value_field  =   $fields;
             }
 
-            $this->pk_field         =   "matricula"
-;        }// END OF CONSTRUCT
+            $this->pk_field         =   "matricula";
+        }// END OF CONSTRUCT
     }// END OF CLASS BOLSISTA
 ?>

@@ -10,14 +10,17 @@
     <?php
         require_once("classes/Bolsista.class.php");
         $bolsista = new Bolsista(array(
-            "nome" => "Fernando",
-            "senha" => "kkllkkllkkl",
+            "nome" => "mendes kk",
+            "senha" => "12345",
             "tipo"  => "2"
         ));
-
-        echo '<pre>';
+        $bolsista->pk_value =   "20170146005";
+        //$bolsista->insert($bolsista);
+        $bolsista->delete($bolsista);
+        echo('<pre>');
         print_r($bolsista);
-        echo '</pre>';
+        echo('</pre>');
+       
 
     ?>
 </body>
