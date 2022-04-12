@@ -3,7 +3,7 @@
 abstract class Database{
     public $server          =   "localhost";
     public $user            =   "figor";
-    public $password        =   "";
+    public $password        =   "755CcmJm80kuAyhV";
     public $database_name   =   "projeto";
     public $connection      =   NULL;
     public $dataset         =   NULL;
@@ -11,8 +11,7 @@ abstract class Database{
 
     //METHODS
 
-    public function __constructor(){
-
+    public function __construct(){
         $this->connect();
 
     }// END OF CONSTRUCTOR
@@ -32,12 +31,10 @@ abstract class Database{
         }
         echo $this->connection->host_info . "\n";
 
-        echo "KKKKKKKKKKKKKKKKKKKKKKK";
-
-        mysqli_query("SET NAMES 'utf8'");
-        mysqli_query("SET character_set_connection  = utf8");
-        mysqli_query("SET character_set_client      = utf8'");
-        mysqli_query("SET character_set_results     = utf8'");
+        $this->connection->query("SET NAMES 'utf8'");
+        $this->connection->query("SET character_set_connection  = utf8");
+        $this->connection->query("SET character_set_client      = utf8'");
+        $this->connection->query("SET character_set_results     = utf8'");
         
     }// CONNECT
 

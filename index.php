@@ -9,8 +9,8 @@
 <body>
     <?php
         require_once("classes/test.class.php");
-
         $test = new Test();
+        echo($test->test);
 
     ?>
 </body>
