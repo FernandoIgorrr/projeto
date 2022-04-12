@@ -106,15 +106,44 @@ abstract class Database{
 
         echo($sql);
        return $this->exec_sql($sql);
+    }//END OF DELETE    
+
+    public function select_all(){
+
     }
+
 
     public function exec_sql($sql = NULL){
         if($sql != NULL){
            $mysqli_query        =   $this->connection->query($sql) or $this->erro_handling(__FILE__,__FUNCTION__);
            $this->affected_rows =   $this->connection->affected_rows;
+           if(substr(trim(strtolower($sql)),0,6) == 'select'){
+                $this->dataset  = $mysqli_query;
+                return $mysqli_query;
+           }
+           else{
+               return $this->affected_rows;
+           }
         }
         else{
             $this->erro_handling(__FILE__,__FUNCTION__,NULL,'Comando SQL não informado na função',FALSE);
+        }
+    }// END OF EXEC_SQL
+
+    public function return_datas($type = NULL){
+        switch (strtolower($type){
+            case "array":
+                return $this->dataset->fetch_array;
+                break;
+            case "assoc":
+                return $this->dataset->fetch_assoc;
+                break;
+            case "object" :
+                return $this->dataset->fetch_object;
+                break;
+            default:
+                return $this->dataset->fetch_object;
+                break;
         }
     }
 
