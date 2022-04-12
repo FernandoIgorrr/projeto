@@ -8,9 +8,16 @@
 </head>
 <body>
     <?php
-        require_once("classes/test.class.php");
-        $test = new Test();
-        echo($test->test);
+        require_once("classes/Bolsista.class.php");
+        $bolsista = new Bolsista(array(
+            "nome" => "Fernando",
+            "senha" => "kkllkkllkkl",
+            "tipo"  => "2"
+        ));
+
+        echo '<pre>';
+        print_r($bolsista);
+        echo '</pre>';
 
     ?>
 </body>
