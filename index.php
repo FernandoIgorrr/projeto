@@ -10,17 +10,24 @@
     <?php
         require_once("classes/Bolsista.class.php");
         $bolsista = new Bolsista(array(
-            "nome" => "mendes kk",
-            "senha" => "12345",
-            "tipo"  => "2"
+            "nome" => "chords",
+            "senha" => "testes",
+            "tipo"  => "1"
         ));
-        $bolsista->pk_value =   "20170146005";
-        //$bolsista->insert($bolsista);
-        $bolsista->delete($bolsista);
+        $bolsista->pk_value =   "20140146005";
+        $bolsista->insert($bolsista);
+       /* $bolsista->delete($bolsista);
         echo('<pre>');
         print_r($bolsista);
         echo('</pre>');
-       
+       */
+        
+       $bolsista->select_all($bolsista);
+       echo '<br>';    
+
+       while($res   =   $bolsista->return_datas()){
+           echo $res->matricula." | ".$res->nome." | ".$res->senha." | ".$res->tipo."<br/>";
+       }
 
     ?>
 </body>

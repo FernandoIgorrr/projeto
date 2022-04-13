@@ -108,8 +108,13 @@ abstract class Database{
        return $this->exec_sql($sql);
     }//END OF DELETE    
 
-    public function select_all(){
-
+    public function select_all($object){
+        $sql = "SELECT * FROM ".$object->table;
+        if($object->extras_select != NULL){
+            $sql    .=  " ".$object->extras_select;
+        }
+        echo $sql;
+        return $this->exec_sql($sql);
     }
 
 
@@ -131,18 +136,18 @@ abstract class Database{
     }// END OF EXEC_SQL
 
     public function return_datas($type = NULL){
-        switch (strtolower($type){
+        switch (strtolower($type)){
             case "array":
-                return $this->dataset->fetch_array;
+                return $this->dataset->fetch_array();
                 break;
             case "assoc":
-                return $this->dataset->fetch_assoc;
+                return $this->dataset->fetch_assoc();
                 break;
             case "object" :
-                return $this->dataset->fetch_object;
+                return $this->dataset->fetch_object();
                 break;
             default:
-                return $this->dataset->fetch_object;
+                return $this->dataset->fetch_object();
                 break;
         }
     }

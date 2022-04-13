@@ -6,7 +6,7 @@
         public $value_field     =   array();
         public $pk_field        =   NULL;
         public $pk_value        =   NULL;
-        public $extras_selects  =   "";
+        public $extras_select   =   "";
 
 
         //METHODS
