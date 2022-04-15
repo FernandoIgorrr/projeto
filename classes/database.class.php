@@ -115,7 +115,30 @@ abstract class Database{
         }
         echo $sql;
         return $this->exec_sql($sql);
-    }
+    }// END OF SELECT_ALL
+
+    public function select_field($object){
+        $sql = "SELECT ";
+      
+        for($i = 0; $i < count($object->value_field); $i++){
+            $sql .= key($object->value_field);
+            if($i < count($object->value_field) - 1){
+                $sql    .=  ", ";
+            }
+            else{
+                $sql    .=  " ";
+            }
+            next($object->value_field);
+        }
+        $sql    .=  "FROM ".$object->table;
+
+        if($object->extras_select != NULL){
+            $sql    .=  " ".$object->extras_select;
+        }
+
+        echo $sql;
+        return $this->exec_sql($sql);
+    }//END OF SELECT_FIELD
 
 
     public function exec_sql($sql = NULL){
