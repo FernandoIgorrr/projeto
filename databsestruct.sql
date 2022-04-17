@@ -32,13 +32,11 @@ CREATE TABLE Bolsista(
 );
 
 CREATE TABLE Usuario(
-	id			INT AUTO_INCREMENT NOT NULL,
-    matricula	varchar(12),
+	id			VARCHAR(12),
     senha		VARCHAR(40) NOT NULL,
     tipo		TINYINT,
     
 	PRIMARY KEY (id),
-	FOREIGN KEY (matricula) REFERENCES Bolsista(matricula),
     FOREIGN KEY (tipo) REFERENCES Tipo_Usuario(codigo)
 );
 

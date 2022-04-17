@@ -119,7 +119,6 @@ abstract class Database{
 
     public function select_field($object){
         $sql = "SELECT ";
-      
         for($i = 0; $i < count($object->value_field); $i++){
             $sql .= key($object->value_field);
             if($i < count($object->value_field) - 1){

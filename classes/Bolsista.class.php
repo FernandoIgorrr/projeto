@@ -10,6 +10,7 @@
 
             if(sizeof($fields) <= 0){
                 $this->value_field = array(
+                    "matricula" =>  NULL,
                     "nome"      =>  NULL,
                     "tipo"      =>  NULL
                 );

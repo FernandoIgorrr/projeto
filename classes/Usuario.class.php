@@ -1,16 +1,17 @@
 <?php
     require_once("Base.class.php");
 
-    class User extends Base{
+    class Usuario extends Base{
         
         public function __construct($fields = array()){
             parent::__construct();
 
-            $this->table = "User";
+            $this->table = "Usuario";
 
             if(sizeof($fields) <= 0){
                 $this->value_field = array(
-                    "nome"      =>  NULL,
+                    "id"        =>  NULL,
+                    "matricula" =>  NULL,
                     "senha"     =>  NULL,
                     "tipo"      =>  NULL
                 );
@@ -19,7 +20,7 @@
                 $this->value_field  =   $fields;
             }
 
-            $this->pk_field         =   "matricula";
+            $this->pk_field         =   "id";
         }// END OF CONSTRUCT
     }// END OF CLASS BOLSISTA
 ?>
